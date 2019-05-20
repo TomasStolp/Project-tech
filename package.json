@@ -1,0 +1,18 @@
+{
+  "name": "metalmatch",
+  "version": "1.0.0",
+  "description": "Webapp that matches single metalheads by artist preferences.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "Project-tech"
+  },
+  "author": "Tomas Stolp",
+  "license": "ISC",
+  "dependencies": {
+    "last-fm": "^5.2.2"
+  }
+}

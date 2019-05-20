@@ -1,0 +1,85 @@
+/*
+*  ==================================================================================================
+*    Color variables! Declared with dolar sign because it's a Sass variable.
+*    I prefer this over adding color variables to the :root because a small lack of browser support.
+*    Sass variables compile the variables to vanila CSS anyways, which is compatible and still eficient
+*  ==================================================================================================
+*/
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: sans-serif;
+  background-color: #000;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #fff;
+}
+
+header, main, footer {
+  padding: 0 5rem;
+  box-sizing: border-box;
+}
+@media (max-width: 25.875rem) {
+  header, main, footer {
+    padding: 0 1rem;
+  }
+}
+
+section {
+  margin: 0 -5rem;
+  padding: 0 5rem;
+}
+@media (max-width: 25.875rem) {
+  section {
+    margin: 0 -1rem;
+    padding: 0 1rem;
+  }
+}
+
+section#top-twenty {
+  background-image: url("../images/background.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 80vh;
+}
+
+form fieldset {
+  display: flex;
+}
+form legend {
+  color: #fff;
+}
+form input[type=text] {
+  padding: 0.5rem;
+  width: 100%;
+}
+
+header {
+  height: 4rem;
+  width: 100%;
+  background-color: #000;
+}
+header nav ul {
+  padding: 0;
+  margin: 0;
+}
+header nav ul li a {
+  padding: 1.5rem 2rem 1.5rem 0;
+  display: inline-block;
+  color: #b9b9b9;
+  font-weight: bold;
+  transition: 0.3s;
+}
+header nav ul li a:hover {
+  color: #fff;
+  transition: 0.3s;
+}
+
+/*# sourceMappingURL=style.css.map */
