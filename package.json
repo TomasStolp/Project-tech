@@ -13,6 +13,12 @@
   "author": "Tomas Stolp",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^2.6.1",
+    "express": "^4.17.0",
     "last-fm": "^5.2.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.0"
   }
 }
