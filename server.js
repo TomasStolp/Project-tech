@@ -6,16 +6,17 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
+var test = require('./add-artist.js');
 
 const data = [
-{
-  name:'Tomas',
-  age: 23
-},
-{
-  name:'Marcella',
-  age: 50
-}
+  {
+    name:'Tomas',
+    age: 23
+  },
+  {
+    name:'Marcella',
+    age: 50
+  }
 ];
 
 app
@@ -26,7 +27,7 @@ app
 .get(':var(/|/home)?', home)
 .get('/about', onabout)
 .get('/profile', profile)
-.post('/', addArtist)
+.post('/', test.addArtist)
 .get('*', (req, res)=>{
   res.render('404.ejs');
 })
@@ -37,16 +38,6 @@ app
 function onabout(req, res){
   res.render('test.ejs', {
     data: data
-  });
-}
-
-function addArtist(req, res){
-  data.push({
-    name: req.body.title
-  });
-  res.render('objects.ejs', {
-    data: data,
-    title: ''
   });
 }
 
