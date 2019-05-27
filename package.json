@@ -18,6 +18,10 @@
     "express": "^4.17.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-env": "^1.7.0",
     "jshint": "^2.10.2",
     "nodemon": "^1.19.0"
   }
