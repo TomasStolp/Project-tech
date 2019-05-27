@@ -55,9 +55,9 @@ function home(req, res){
   });
 }
 
-  function profile(req, res){
-    res.render('profile.ejs', {
-      data: data,
-      title: "My Profile"
+function profile(req, res){
+  res.render('profile.ejs', {
+    data: data,
+    title: "My Profile"
   });
 }
