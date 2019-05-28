@@ -1,11 +1,15 @@
 # Project-tech - MetalMatch
 
 ## Description
-MetalMatch 
+MetalMatch is a webapp for single metalheads where you might meet your other half by the taste in music.
 ## Installation
 Enter the following command in your terminal ``` git clone https://github.com/TomasS666/Project-tech.git ```
 
 Enter ``` npm install ``` in your terminal. It will install all depencies needed for the webapp.
+
+## Usage 
+MetalMatch is under construction, you can see the site but you can't use the third-party api anymore.
+There will be an update soon.
 
 ## License
 The MIT License
