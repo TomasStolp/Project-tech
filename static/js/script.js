@@ -1,5 +1,7 @@
+/*jshint esversion: 6 */
+import {multiply} from './plus.js';
 
-
+console.log(multiply(3, 3));
 //   let concertSubmit = document.querySelector('#concertSubmit');
 //
 //   concertSubmit.addEventListener('click', validateConcert);

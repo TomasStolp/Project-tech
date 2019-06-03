@@ -1,3 +1,4 @@
+<% include components/head.ejs %>
 <section id="top-twenty">
   <form action="/" method="post">
     <fieldset>
@@ -12,3 +13,11 @@
    </fieldset>
   </form>
 </section>
+
+
+
+<% for(let i = 0; i < data.length; i++){%>
+<h2>Welcome <%= data[i].name; %></h2>
+<% } %>
+
+<% include components/footer.ejs %>
