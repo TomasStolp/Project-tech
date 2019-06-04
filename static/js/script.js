@@ -2,6 +2,31 @@
 import {multiply} from './plus.js';
 
 console.log(multiply(3, 3));
+
+
+
+
+
+
+window.onload = function(){
+  // const searchBand = document.querySelector('input#name');
+  //
+  // searchBand.addEventListener("keyup", setTimeout())
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 //   let concertSubmit = document.querySelector('#concertSubmit');
 //
 //   concertSubmit.addEventListener('click', validateConcert);

@@ -9,7 +9,8 @@
   box-sizing: border-box;
 }
 
-html, body {
+body,
+html {
   margin: 0;
   padding: 0;
   width: 100%;
@@ -17,18 +18,33 @@ html, body {
   background-color: #000;
 }
 
-h1, h2, h3, h4, h5, h6 {
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #fff;
+  text-transform: capitalize;
 }
 
-header, main, footer {
+footer,
+header,
+main {
   padding: 0 5rem;
   box-sizing: border-box;
 }
 @media (max-width: 25.875rem) {
-  header, main, footer {
+  footer,
+header,
+main {
     padding: 0 1rem;
   }
+}
+
+main {
+  margin: 2rem 0 5.1875rem;
 }
 
 section {
@@ -65,30 +81,109 @@ header {
   width: 100%;
   background-color: #000;
 }
-
-nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #232323;
+header .logo-img {
+  display: block;
+  margin: 0 auto;
+  max-width: 12rem;
 }
-nav ul {
+
+.btn {
+  padding: 1rem 0;
+  display: inline-block;
+  color: #fff;
+  font-size: 120%;
+  border: 1px solid white;
+  width: 100%;
+  font-weight: bold;
+  transition: 0.3s;
+  margin: 0 0 0.75rem;
+  text-align: center;
+}
+.btn.--primary {
+  background-color: #fff;
+  color: #000;
+}
+@media (min-width: 25.875rem) {
+  .btn {
+    color: #b9b9b9;
+  }
+  .btn:hover {
+    color: #fff;
+    transition: 0.3s;
+  }
+}
+
+nav.home-menu ul {
   padding: 0;
   margin: 0;
 }
-nav ul li {
+
+nav.main-nav {
+  position: fixed;
+  bottom: 0;
+  background-color: #BD1E2D;
+  width: 100%;
+  box-shadow: 0 -5px 5px -5px #231f20;
+}
+nav.main-nav ul {
+  margin: 0;
+  padding: 0;
+}
+nav.main-nav ul li {
   display: inline-block;
 }
-nav ul li a {
-  padding: 1.5rem 2rem 1.5rem 0;
+nav.main-nav ul li a {
   display: inline-block;
-  color: #b9b9b9;
-  font-weight: bold;
-  transition: 0.3s;
+  padding: 1.5rem;
 }
-nav ul li a:hover {
+
+.band,
+input[type=checkbox],
+label {
   color: #fff;
-  transition: 0.3s;
+}
+
+.band {
+  background-color: #BD1E2D;
+  margin: 0 0 0.75rem;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+a.home-icon {
+  height: 100%;
+  width: 3rem;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.top-twenty-list {
+  padding: 0;
+  margin: 0;
+}
+
+#add-bands input#name {
+  margin: 0 0 1rem;
+}
+#add-bands input[type=checkbox] {
+  border-radius: 50%;
+  background: none;
+  height: 1rem;
+  width: 1rem;
+  -webkit-appearance: none;
+  background: red;
+}
+#add-bands input[type=checkbox]:checked {
+  transition: all 0.5s;
+  transform: scale(1.25);
+}
+#add-bands #submit-band {
+  position: fixed;
+  bottom: 1rem;
+  z-index: 99;
+  right: 1rem;
 }
 
 /*# sourceMappingURL=style.css.map */

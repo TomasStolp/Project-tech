@@ -1,23 +1,14 @@
 <% include components/head.ejs %>
-<section id="top-twenty">
-  <form action="/" method="post">
-    <fieldset>
-      <legend>Voeg je favoriete artiesten toe aan jouw top 20!</legend>
-      <label for="title">Zoek naar een metalartiest!</label>
-      <input id="title" name="title" type="text" placeholder="Zoek op artiest of bandnaam">
-      <label for="age">Age</label>
-      <input id="age" name="age" type="number">
-      <!-- <label for="description">Beschrijving Concert</label>
-      <textarea id="description" name="description"></textarea> -->
-      <input id="artistSubmit" type="submit" value="Voeg Toe">
-   </fieldset>
-  </form>
-</section>
-
-
-
-<% for(let i = 0; i < data.length; i++){%>
-<h2>Welcome <%= data[i].name; %></h2>
+<a class="btn --primary" href="/add-bands">Add Bands</a>
+<% if(Array.isArray(data[1].top_20) && data[1].top_20.length > 0){%>
+  <ul class="top-twenty-list">
+    <% for( let i = 0; i < data[1].top_20.length; i++){ %>
+      <li class="band"><%= data[1].top_20[i] _%></li>
+      <% if(i >= 20){
+        break;
+      }%>
+    <% } %>
+  </ul>
 <% } %>
 
 <% include components/footer.ejs %>

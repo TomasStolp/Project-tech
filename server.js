@@ -45,14 +45,15 @@ mongo.connect(url, function(err, client) {
 
 app
 .use(express.static(__dirname + '/static'))
+.use(bodyParser.json())
 .use(bodyParser.urlencoded({extended: true}))
 .set('view-engine', 'ejs')
 .set('views', 'views')
 .get(':var(/|/home)?', home)
 .get('/my-profile', myProfile)
 .get('/top-twenty', topTwenty)
-// .get('/profile', profile)
-// .post('/', addArtist)
+.get('/add-bands', addBands)
+.post('/add-bands', addToUser)
 .get('*', (req, res)=>{
   res.render('404.ejs');
 })
@@ -64,24 +65,91 @@ function home(req, res){
     res.sendFile(__dirname + '/static/home.html');
 }
 
-function myProfile(req, res){
+function myProfile(req, res, next){
   db.collection('users').find().toArray(done);
 
-  function done(err, data){
-    res.render('my-profile.ejs', {data:data});
+  function done(err, data) {
+    if (err) {
+      next(err);
+    } else {
+      res.render('my-profile.ejs', {data: data});
+    }
   }
 }
 
 function topTwenty(req, res, next) {
+  /* I took this example out of the slides from the BE lecture.
+  *  I tried to make it asynchronous before I realised it already is.
+  */
+
+  console.log('function top twenty running');
+  db.collection('users').find().toArray(done);
+
+  function done(err, data) {
+    if (err) {
+      next(err);
+    } else {
+      console.log('Almost done with top twenty');
+      res.render('top-twenty.ejs', {data: data});
+    }
+  }
+}
+
+function addBands(req, res, next){
   db.collection('bands').find().toArray(done);
 
   function done(err, data) {
     if (err) {
       next(err);
     } else {
-      res.render('top-twenty.ejs', {data: data});
+      res.render('add-bands.ejs', {data: data});
     }
   }
+}
+
+function addToUser(req, res, next){
+
+  // For updating user data I used an example: https://www.pabbly.com/tutorials/node-js-mongodb-update-into-database/
+
+  db.collection('users').find().toArray(done);
+  function done(err, data){
+    if(err){
+      next(err);
+    }
+    //https://stackoverflow.com/questions/42921727/how-to-check-req-body-empty-or-not-in-node-express
+    else if(req.body.constructor === Object && Object.keys(req.body).length === 0){
+        return;
+    }
+    else{
+      pushToArray.then(function(resolved){
+        console.log(resolved);
+        res.redirect('/top-twenty');
+      })
+      .catch(function(error){
+        console.log(error.message);
+      });
+    }
+  }
+
+  let pushToArray = new Promise( function (resolve, reject){
+
+  // let parsedBands = JSON.parse(req.body);
+  let myquery = { firstName: "Tomas", $where: "this.top_20.length < 20" };
+  let newvalues = {$addToSet: {
+    top_20: Object.keys(req.body).toString()
+  }};
+
+  db.collection("users").update(myquery, newvalues, function(err, data) {
+      if (err) {
+        next(err);
+        reject(err);
+      } else {
+          resolve("Worked");
+          console.log(Object.keys(req.body));
+      }
+    });
+});
+
 }
 
 
