@@ -3,7 +3,7 @@
 <% if(Array.isArray(data[1].top_20) && data[1].top_20.length > 0){%>
   <ul class="top-twenty-list">
     <% for( let i = 0; i < data[1].top_20.length; i++){ %>
-      <li class="band"><%= data[1].top_20[i] _%></li>
+      <li class="band --item"><%= data[1].top_20[i] _%></li>
       <% if(i >= 20){
         break;
       }%>

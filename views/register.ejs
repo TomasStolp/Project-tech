@@ -1,0 +1,18 @@
+<% include components/head.ejs %>
+<section id="register">
+  <form action="/register" method="post">
+    <fieldset>
+        <legend>Create a new user</legend>
+        <label for="firstName">First Name</label>
+        <input id="firstName" name="firstName" type="text" placeholder="Enter your first name here">
+        <label for="lastName">Last Name</label>
+        <input id="lastName" name="lastName" type="text" placeholder="Enter your last name here">
+        <label for="emailaddress">Emailaddress</label>
+        <input id="emailaddress" name="emailaddress" type="email" placeholder="Enter your e-mailadress here">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="Enter a password here">
+      <button id="submit-band" type="submit">Update your profile</button>
+   </fieldset>
+  </form>
+</section>
+<% include components/footer.ejs %>

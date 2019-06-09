@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+  /*jshint esversion: 6 */
 
 /*
 *  On top of every JS document I put a comment which helps JSHint know that I'm working in ES6.
@@ -13,7 +13,6 @@
 *  The dot .env file is used to store information that shouldn't be publicly available like db info.
 */
 
-require('dotenv').config();
 
 /*
 * Mongo to communicate to my db.
@@ -25,103 +24,169 @@ require('dotenv').config();
 * Bodyparser is middleware to make it easier to parse input data
 * The app const starts a server.
 */
-const mongo = require('mongodb').MongoClient;
-const assert = require('assert');
+
+require('dotenv').config();
+const mongoose = require('mongoose');
 const http = require('http');
 const express = require('express');
 const path = require('path');
 const ejs = require('ejs');
 const bodyParser = require('body-parser');
+const uuid = require('uuid/v4');
+const session = require('express-session');
+
+// Password hashing
+
+
 const app = express();
 
-var db = null;
-var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT;
+const registerUser = require('./modules/register.js');
 
-mongo.connect(url, function(err, client) {
-  assert.equal(null, err, 'Heey it didn\' work!');
+// Models
+const User = require('./models/user.js');
+const Band = require('./models/band.js');
+
+const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
+
+mongoose.connect(url, {useNewUrlParser: true});
+let db = mongoose.connection;
+
+db.once("open", ()=>{
   console.log("DB connected successfully to server");
-  db = client.db(process.env.DB_NAME);
 });
 
 app
+// .use(session({
+//   genid: (req) => {
+//     console.log('Inside the session middleware');
+//     console.log(req.sessionID);
+//     return uuid();
+//   },
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true
+// }))
+// .get('/', (req, res) => {
+//   console.log(req)
+//   const uniqueId = uuid()
+//   res.send(`Hit home page. Received the unique id: ${uniqueId}\n`)
+// })
 .use(express.static(__dirname + '/static'))
 .use(bodyParser.json())
 .use(bodyParser.urlencoded({extended: true}))
 .set('view-engine', 'ejs')
 .set('views', 'views')
 .get(':var(/|/home)?', home)
+.get('/login', login)
+.get('/register', registerPage)
 .get('/my-profile', myProfile)
 .get('/top-twenty', topTwenty)
 .get('/add-bands', addBands)
+.post('/register', register)
 .post('/add-bands', addToUser)
-.get('*', (req, res)=>{
-  res.render('404.ejs');
-})
+.use(pageNotFound)
 .listen(8000, function(){
   console.log('Listening over 8000');
 });
 
-function home(req, res){
-    res.sendFile(__dirname + '/static/home.html');
+function pageNotFound(req, res){
+  res.status(404).render('404.ejs')
 }
 
-function myProfile(req, res, next){
-  db.collection('users').find().toArray(done);
+function home(req, res){
+  res.sendFile(__dirname + '/static/home.html');
+}
+
+function login(req, res){
+  res.render('login.ejs');
+}
+
+function registerPage(req, res){
+  res.render('register.ejs');
+}
+
+function register(req, res){
+  registerUser(req, res)
+  .then(() =>{
+    res.redirect('/');
+  })
+  .catch((err)=>console.log(`Following error occured: ${err.message}`));
+}
+
+function myProfile(req, res){
+  User.find(done);
 
   function done(err, data) {
     if (err) {
-      next(err);
+      console.log(err);
     } else {
       res.render('my-profile.ejs', {data: data});
     }
   }
 }
 
-function topTwenty(req, res, next) {
+function topTwenty(req, res) {
   /* I took this example out of the slides from the BE lecture.
   *  I tried to make it asynchronous before I realised it already is.
   */
 
   console.log('function top twenty running');
-  db.collection('users').find().toArray(done);
+  User.find(done);
 
   function done(err, data) {
     if (err) {
-      next(err);
+      console.log(err);
     } else {
-      console.log('Almost done with top twenty');
-      res.render('top-twenty.ejs', {data: data});
+        console.log('Almost done with top twenty');
+        res.render('top-twenty.ejs', {data: data});
     }
   }
 }
 
-function addBands(req, res, next){
-  db.collection('bands').find().toArray(done);
+function addBands(req, res){
+  Band.find(done);
 
   function done(err, data) {
     if (err) {
-      next(err);
+      console.log(err);
     } else {
-      res.render('add-bands.ejs', {data: data});
+      res.render('add-bands.ejs', {data: data, error: null});
     }
   }
 }
 
-function addToUser(req, res, next){
+function addToUser(req, res){
 
   // For updating user data I used an example: https://www.pabbly.com/tutorials/node-js-mongodb-update-into-database/
 
-  db.collection('users').find().toArray(done);
+  const pushToArray = new Promise( function (resolve, reject){
+
+  let myquery = { firstName: "Tomas", $where: "this.top_20.length < 20" };
+  let newvalues = {$addToSet: { top_20: { $each: Object.keys(req.body) } } };
+
+  User.update(myquery, newvalues, function(err, data) {
+      if (err) {
+        console.log(err);
+        reject(err);
+      } else {
+          resolve("Worked");
+          console.log(Object.keys(req.body));
+      }
+    });
+  });
+
+  User.find(done);
   function done(err, data){
     if(err){
-      next(err);
+      console.log(err);
     }
     //https://stackoverflow.com/questions/42921727/how-to-check-req-body-empty-or-not-in-node-express
-    else if(req.body.constructor === Object && Object.keys(req.body).length === 0){
-        return;
-    }
-    else{
-      pushToArray.then(function(resolved){
+    else if(Object.keys(req.body).length === 0){
+      console.log('send empty post');
+      return;
+    } else{
+      pushToArray
+      .then(function(resolved){
         console.log(resolved);
         res.redirect('/top-twenty');
       })
@@ -131,56 +196,5 @@ function addToUser(req, res, next){
     }
   }
 
-  let pushToArray = new Promise( function (resolve, reject){
-
-  // let parsedBands = JSON.parse(req.body);
-  let myquery = { firstName: "Tomas", $where: "this.top_20.length < 20" };
-  let newvalues = {$addToSet: {
-    top_20: Object.keys(req.body).toString()
-  }};
-
-  db.collection("users").update(myquery, newvalues, function(err, data) {
-      if (err) {
-        next(err);
-        reject(err);
-      } else {
-          resolve("Worked");
-          console.log(Object.keys(req.body));
-      }
-    });
-});
 
 }
-
-
-
-//
-// function addArtist(req, res){
-//   data.push({
-//     name: req.body.title.toString();
-//   });
-//   res.render('objects.ejs', {
-//     data: data,
-//     title: ''
-//   });
-// }
-//
-//
-// function onabout(req, res){
-//   res.render('test.ejs', {
-//     data: data
-//   });
-// }
-//
-// function home(req, res){
-//   res.render('home.ejs', {
-//     data: data
-//   });
-// }
-//
-// function profile(req, res){
-//   res.render('profile.ejs', {
-//     data: data,
-//     title: "My Profile"
-//   });
-// }
