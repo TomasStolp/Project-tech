@@ -41,6 +41,7 @@ const session = require('express-session');
 const app = express();
 
 const registerUser = require('./modules/register.js');
+const loginUser = require('./modules/login.js');
 
 // Models
 const User = require('./models/user.js');
