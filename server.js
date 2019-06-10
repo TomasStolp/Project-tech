@@ -47,7 +47,9 @@ const loginUser = require('./modules/login.js');
 const User = require('./models/user.js');
 const Band = require('./models/band.js');
 
-const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
+
+const url = process.env.MONGODB_URI;
+
 
 mongoose.connect(url, {useNewUrlParser: true});
 let db = mongoose.connection;
