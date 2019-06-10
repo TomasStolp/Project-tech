@@ -88,7 +88,7 @@ app
 .post('/register', register)
 .post('/add-bands', addToUser)
 .use(pageNotFound)
-.listen(process.env.PORT, function(){
+.listen(8000, function(){
   console.log('Listening over 8000');
 });
 
