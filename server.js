@@ -39,7 +39,7 @@ const session = require('express-session');
 
 
 const app = express();
-
+ 
 const registerUser = require('./modules/register.js');
 const loginUser = require('./modules/login.js');
 
@@ -80,16 +80,17 @@ app
 .set('view-engine', 'ejs')
 .set('views', 'views')
 .get(':var(/|/home)?', home)
-.get('/login', login)
+.get('/login', loginPage)
 .get('/register', registerPage)
 .get('/my-profile', myProfile)
 .get('/top-twenty', topTwenty)
 .get('/add-bands', addBands)
 .post('/register', register)
+.post('/login', login)
 .post('/add-bands', addToUser)
 .use(pageNotFound)
 .listen(8000, function(){
-  console.log('Listening over 8000');
+  console.log('Listening');
 });
 
 function pageNotFound(req, res){
@@ -100,8 +101,16 @@ function home(req, res){
   res.sendFile(__dirname + '/static/home.html');
 }
 
-function login(req, res){
+function loginPage(req, res){
   res.render('login.ejs');
+}
+
+function login(req, res){
+  loginUser(req, res)
+  .then(()=>{
+    res.redirect('/my-profile')
+  })
+  .catch((err)=>console.log(`Following error while attempting to login ${err.message}`))
 }
 
 function registerPage(req, res){

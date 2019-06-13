@@ -7,7 +7,15 @@ const saltRounds = 10;
 const loginUser = (req, res)=>{
     return new Promise((resolve, reject) => {
 
-        // User.find({userName})
+        User.findOne({userName:req.body.username}, (err, result)=>{
+            
+            bcryptjs.compare(req.body.password, result.password, function(err, res) {
+                if(res == true){
+                    console.log('nice, logged in');
+                }
+            });
+            
+        });
   
         // bcryptjs.compare(req.body.password, hash, function(err, res) {
         //     res
