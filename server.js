@@ -59,21 +59,22 @@ db.once("open", ()=>{
 });
 
 app
-// .use(session({
-//   genid: (req) => {
-//     console.log('Inside the session middleware');
-//     console.log(req.sessionID);
-//     return uuid();
-//   },
-//   secret: 'keyboard cat',
-//   resave: false,
-//   saveUninitialized: true
-// }))
-// .get('/', (req, res) => {
-//   console.log(req)
-//   const uniqueId = uuid()
-//   res.send(`Hit home page. Received the unique id: ${uniqueId}\n`)
-// })
+.use(session({
+  genid: (req) => {
+    req.session.id = "yoooo";
+    console.log('Inside the session middleware');
+    console.log(req.session.id);
+    return uuid();
+  },
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
+.get('/', (req, res) => {
+  console.log(req)
+  const uniqueId = uuid()
+  res.send(`Hit home page. Received the unique id: ${uniqueId}\n`)
+})
 .use(express.static(__dirname + '/static'))
 .use(bodyParser.json())
 .use(bodyParser.urlencoded({extended: true}))
