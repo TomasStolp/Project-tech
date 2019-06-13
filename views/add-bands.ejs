@@ -10,11 +10,11 @@
       <legend>Add your favorite bands to your top 20 list!</legend>
       <label for="name">Search for a metalband:</label>
       <% if(Array.isArray(data) && data.length > 0){%>
-        <input id="name" type="text" placeholder="Enter a bandname here">
+        <input id="search" data-field="search" type="text" placeholder="Enter a bandname here">
         
           <% for(let i = 0; i < data.length; i++){ %>
             <label class="band --option" for="<%= data[i].name _%>">
-              <input type="checkbox" id="<%= data[i].name _%>" name="<%= data[i].name _%>">
+              <input type="checkbox" id="<%= data[i].name _%>" name="<%= data[i].name _%>" data-name="band">
               <span><%= data[i].name _%></span>
             </label>
           <% } %>

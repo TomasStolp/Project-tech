@@ -30,11 +30,10 @@ const mongoose = require('mongoose');
 const http = require('http');
 const express = require('express');
 const path = require('path');
-const ejs = require('ejs');
 const bodyParser = require('body-parser');
 const uuid = require('uuid/v4');
+const expressValidator = require('express-validator');
 const session = require('express-session');
-
 // Password hashing
 
 
@@ -48,7 +47,8 @@ const User = require('./models/user.js');
 const Band = require('./models/band.js');
 
 
-const url = process.env.MONGODB_URI;
+// const url = process.env.MONGODB_URI;
+const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
 
 
 mongoose.connect(url, {useNewUrlParser: true});
@@ -59,25 +59,27 @@ db.once("open", ()=>{
 });
 
 app
-.use(session({
-  genid: (req) => {
-    req.session.id = "yoooo";
-    console.log('Inside the session middleware');
-    console.log(req.session.id);
-    return uuid();
-  },
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true
-}))
-.get('/', (req, res) => {
-  console.log(req)
-  const uniqueId = uuid()
-  res.send(`Hit home page. Received the unique id: ${uniqueId}\n`)
-})
+// .use(session({
+//   genid: (req) => {
+//     req.session.id = "yoooo";
+//     console.log('Inside the session middleware');
+//     console.log(req.session.id);
+//     return uuid();
+//   },
+//   secret: 'keyboard cat',
+//   resave: false,
+//   saveUninitialized: true
+// }))
+// .get('/', (req, res) => {
+//   console.log(req)
+//   const uniqueId = uuid()
+//   res.send(`Hit home page. Received the unique id: ${uniqueId}\n`)
+// })
 .use(express.static(__dirname + '/static'))
 .use(bodyParser.json())
 .use(bodyParser.urlencoded({extended: true}))
+.use(expressValidator())
+.use(session({secret:'tomas', saveUninitialized:false, resave:false}))
 .set('view-engine', 'ejs')
 .set('views', 'views')
 .get(':var(/|/home)?', home)
@@ -86,6 +88,8 @@ app
 .get('/my-profile', myProfile)
 .get('/top-twenty', topTwenty)
 .get('/add-bands', addBands)
+.get('/test', test)
+.post('/submit', testpost)
 .post('/register', register)
 .post('/login', login)
 .post('/add-bands', addToUser)
@@ -98,24 +102,42 @@ function pageNotFound(req, res){
   res.status(404).render('404.ejs')
 }
 
+function test(req, res){
+  res.render('test.ejs', {title: 'Form-validation', succes:false, errors: req.session.errors})
+  req.session.errors = null;
+}
+
+function testpost(req, res){
+  req.check('email', 'Invalid email address').isEmail();
+  req.check('password', 'Password is invalid').isLength({min: 4}).equals(req.body.confirmPassword)
+
+  var errors = req.validationErrors();
+  if(errors){
+    req.session.errors = errors;
+    req.render('/test', {errors:req.session.errors})
+  }
+  res.redirect('/test');
+}
+
 function home(req, res){
   res.sendFile(__dirname + '/static/home.html');
 }
 
 function loginPage(req, res){
-  res.render('login.ejs');
+  res.render('login.ejs', {title: 'Login'});
 }
 
 function login(req, res){
   loginUser(req, res)
   .then(()=>{
+    console.log('sending to my profile');
     res.redirect('/my-profile')
   })
   .catch((err)=>console.log(`Following error while attempting to login ${err.message}`))
 }
 
 function registerPage(req, res){
-  res.render('register.ejs');
+  res.render('register.ejs', {title:'Sign-up'});
 }
 
 function register(req, res){
@@ -163,7 +185,7 @@ function addBands(req, res){
     if (err) {
       console.log(err);
     } else {
-      res.render('add-bands.ejs', {data: data, error: null});
+      res.render('add-bands.ejs', {data: data, pageType:"add-bands", error: null});
     }
   }
 }

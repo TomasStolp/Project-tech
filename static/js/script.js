@@ -9,11 +9,40 @@ console.log(multiply(3, 3));
 
 
 window.onload = function(){
-  // const searchBand = document.querySelector('input#name');
-  //
-  // searchBand.addEventListener("keyup", setTimeout())
 
+  if(document.querySelector('body').getAttribute('data-page-type') === 'add-bands'){
+    searchBands();
+  }
 
+  function searchBands(){
+    const searchField = document.querySelector('input[data-field="search"]');
+
+    var bands = document.querySelectorAll('input[data-name="band"]');
+    
+    //bands[0].style.display ="none"
+    
+    searchField.addEventListener("keyup", (e)=>{
+      setTimeout(()=>{
+        e.preventDefault();
+        
+        let value = searchField.value;
+        console.log(value)
+        
+        bands.forEach(function(elem){
+            elem.parentNode.classList.add("hide");
+        })
+        
+        let regex = new RegExp(value, "g");
+        let result = Array.from(bands).filter(function(elem){
+            return elem.getAttribute("name").match(regex);
+        })
+        result.forEach(function(elem){
+            console.log(elem)
+            elem.parentNode.classList.remove("hide");
+        })
+      }, 500)
+    })
+  }
 }
 
 

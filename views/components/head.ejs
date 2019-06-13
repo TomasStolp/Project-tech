@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="css/style.css">
   <% include title.ejs %>
 </head>
-<body>
+<body <% if(typeof pageType !== 'undefined'){%>data-page-type="<%= pageType _%>"<%}%>>
   <header>
     <img src="images/logo-main.svg" class="logo-img" alt="">
   <% include header-menu.ejs %>
