@@ -9,6 +9,7 @@
   <link rel="shortcut icon" href="images/favicon/favicon-dark.png" />
   <!-- Adds icon for ios users who saved this site as a shortcut -->
   <link rel="apple-touch-icon-precomposed" href="images/favicon/favicon-dark.png" />
+  <link rel="manifest" href="manifest.json">
   <% include title.ejs %>
 </head>
 <body <% if(typeof pageType !== 'undefined'){%>data-page-type="<%= pageType _%>"<%}%>>
