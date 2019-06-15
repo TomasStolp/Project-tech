@@ -41,6 +41,7 @@
   const register = require('./routes/register.js');
 
   // Models
+  const User = require('./models/user.js');
   // const User = require('./models/user.js');
   const Band = require('./models/band.js');
 
@@ -64,39 +65,38 @@
   });
 
   app
-    // .use(session({
-    //   genid: (req) => {
-    //     req.session.id = "yoooo";
-    //     console.log('Inside the session middleware');
-    //     console.log(req.session.id);
-    //     return uuid();
-    //   },
-    //   secret: 'keyboard cat',
-    //   resave: false,
-    //   saveUninitialized: true
-    // }))
+  // .use(session({
+  //   genid: (req) => {
+  //     console.log('Inside the session middleware');
+  //     return uuid();
+  //   },
+  //   secret: 'keyboard cat',
+  //   resave: false,
+  //   saveUninitialized: true
+  // }))
     // .get('/', (req, res) => {
     //   console.log(req)
     //   const uniqueId = uuid()
     //   res.send(`Hit home page. Received the unique id: ${uniqueId}\n`)
     // })
     .use(express.static(__dirname + '/static'))
-    .use(bodyParser.json())
-    .use(bodyParser.urlencoded({
-      extended: true
-    }))
-    .use(expressValidator())
     .use(session({
       secret: 'tomas',
       saveUninitialized: false,
       resave: false
     }))
+    .use(bodyParser.json())
+    .use(bodyParser.urlencoded({
+      extended: true
+    }))
+    .use(expressValidator())
+ 
     .set('view-engine', 'ejs')
     .set('views', 'views')
     .get('/', homeRoute)
     .use('/login', loginUser)
     .use('/register', register)
-    .get('/my-profile', myProfile)
+    // .get('/my-profile', myProfile)
     .get('/top-twenty', topTwenty)
     .get('/add-bands', addBands)
     // .get('/test', test)
@@ -131,16 +131,12 @@
 
 
 
-  function myProfile(req, res) {
-    User.find(done);
+  // function myProfile(req, res) {
+  //   const firstName = req.session.firstName;
 
-    function done(err, data) {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render('my-profile.ejs', {
-          data: data
-        });
-      }
-    }
-  }
+  //   res.send(firstName)
+  //       // res.render('my-profile.ejs', {
+  //       //   data: [firstName]
+  //       // });
+
+  // }
