@@ -25,19 +25,24 @@ router.post('/', (req, res)=>{
                     
                     if(result == true){
                         console.log('nice, logged in');
-                        req.session.id = result._id;
-                        req.session.userName = result.userName;
-                        req.session.firstName = result.firstName;
+                        req.session.id = user._id;
+                        req.session.userName = user.userName;
+                        req.session.firstName = user.firstName;
                         const uniqueId = uuid();
                         console.log(uniqueId);
-                        resolve();
+                        resolve(req.session);
                     }
                     else{
-                       reject(new Error('Could not be authenticated'));
+                        console.log('rejected')
+                        reject(new Error('Could not be authenticated'));
+                        res.redirect('/login')
                     }
                         
                     
                 });
+            }
+            else{
+                reject(new Error("User can't be found   "));
             }
             });
         });
@@ -51,11 +56,14 @@ router.post('/', (req, res)=>{
     .catch((err)=>{
       console.log(`Following error while attempting to login ${err.message}`);
      
-        if(req.body.emailaddress){
+        if(String(req.body.emailaddress).length !== 0){
             let enteredEmail = req.session.emailaddress;
             res.render('register.ejs', {
                 enteredEmail:enteredEmail,
             }); 
+        }
+        else{
+            res.render('register.ejs');
         }
     })
 });

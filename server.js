@@ -51,8 +51,8 @@
   const homeRoute = require('./routes/home.js');
   const topTwenty = require('./routes/top-twenty.js');
   const loginUser = require('./routes/login.js');
-  // const url = process.env.MONGODB_URI;
-  const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
+  const url = process.env.MONGODB_URI;
+  // const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
 
 
   mongoose.connect(url, {
@@ -97,8 +97,8 @@
     .use('/login', loginUser)
     .use('/register', register)
     // .get('/my-profile', myProfile)
-    .get('/top-twenty', topTwenty)
-    .get('/add-bands', addBands)
+    .use('/top-twenty', topTwenty)
+    .use('/add-bands', addBands)
     // .get('/test', test)
     // .post('/submit', testpost)
     // .post('/login', login)
