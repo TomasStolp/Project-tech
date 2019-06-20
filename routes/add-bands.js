@@ -22,7 +22,7 @@ router.post('/', (req, res) => {
 
         const pushToArray = new Promise( function (resolve, reject){
 
-        let myquery = { firstName: req.session.userName, $where: "this.top_20.length < 20" };
+        let myquery = { userName: 'stolptomas@hotmail.com', $where: "this.top_20.length < 20" };
         let newvalues = {$addToSet: { top_20: { $each: Object.keys(req.body) } } };
 
         User.update(myquery, newvalues, function(err, data) {

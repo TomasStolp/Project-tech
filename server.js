@@ -51,8 +51,8 @@
   const homeRoute = require('./routes/home.js');
   const topTwenty = require('./routes/top-twenty.js');
   const loginUser = require('./routes/login.js');
-  const url = process.env.MONGODB_URI;
-  // const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
+  // const url = process.env.MONGODB_URI;
+  const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
 
 
   mongoose.connect(url, {
@@ -75,7 +75,7 @@
   //   saveUninitialized: true
   // }))
     // .get('/', (req, res) => {
-    //   console.log(req)
+    //   // console.log(req)
     //   const uniqueId = uuid()
     //   res.send(`Hit home page. Received the unique id: ${uniqueId}\n`)
     // })
