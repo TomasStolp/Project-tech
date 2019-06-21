@@ -6,19 +6,36 @@ router.get('/', (req, res) => {
     /* I took this example out of the slides from the BE lecture.
     *  I tried to make it asynchronous before I realised it already is.
     */
-  
-    console.log('function top twenty running');
-    User.find(done);
-  
-    function done(err, data) {
-      if (err) {
-        console.log(err);
-      } else {
-          console.log('Almost done with top twenty');
-          res.render('top-twenty.ejs', {data: data});
-      }
+
+    if(!req.session.user){
+      res.redirect('/login');
     }
+
+    console.log('function top twenty running');
+    User.findOne({userName:req.session.user}).exec()
+  
+    .catch((err)=>{
+      console.log(err)
+    })
+    .then((data)=>{
+      let test = data.firstName;
+      console.log(test)
+      console.log(data + '?');
+      res.render('top-twenty.ejs', {data: data});
+    })
+
   });
+
+  router.delete('/:band', (req, res)=>{
+      User.findOne({userName:req.session.user}).exec()
+      .catch((err)=>{
+          console.log(err);
+      })
+      .then((data)=>{
+          console.log(data);
+          console.log(data.top_20.indexOf(req.params.band))
+      })
+  })
 
 module.exports = router;
 

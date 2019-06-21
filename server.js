@@ -48,40 +48,30 @@
   // Routes
   const pageNotFound = require('./routes/404.js');
   const addBands = require('./routes/add-bands.js');
+  const removeBand = require('./routes/delete-band.js');
   const homeRoute = require('./routes/home.js');
   const topTwenty = require('./routes/top-twenty.js');
   const loginUser = require('./routes/login.js');
+  const logout = require('./routes/logout.js');
+
   // const url = process.env.MONGODB_URI;
   const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
-
 
   mongoose.connect(url, {
     useNewUrlParser: true
   });
+
   let db = mongoose.connection;
 
   db.once("open", () => {
-    console.log("DB connected successfully to server");
+    console.log("DB connected successfully to server")
   });
 
   app
-  // .use(session({
-  //   genid: (req) => {
-  //     console.log('Inside the session middleware');
-  //     return uuid();
-  //   },
-  //   secret: 'keyboard cat',
-  //   resave: false,
-  //   saveUninitialized: true
-  // }))
-    // .get('/', (req, res) => {
-    //   // console.log(req)
-    //   const uniqueId = uuid()
-    //   res.send(`Hit home page. Received the unique id: ${uniqueId}\n`)
-    // })
     .use(express.static(__dirname + '/static'))
     .use(session({
-      secret: 'tomas',
+      name: 'haha',
+      secret: 'Maniac',
       saveUninitialized: false,
       resave: false
     }))
@@ -90,12 +80,14 @@
       extended: true
     }))
     .use(expressValidator())
- 
+
     .set('view-engine', 'ejs')
     .set('views', 'views')
     .get('/', homeRoute)
     .use('/login', loginUser)
     .use('/register', register)
+    .use('/logout', logout)
+    // .use('/top-twenty/:band', removeBand)
     // .get('/my-profile', myProfile)
     .use('/top-twenty', topTwenty)
     .use('/add-bands', addBands)

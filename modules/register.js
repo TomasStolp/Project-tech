@@ -35,4 +35,4 @@
 //     }
 
 //   const register = module.exports = registerUser;
-console.log('fefe')
+console.log('fefe');

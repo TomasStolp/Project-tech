@@ -6,7 +6,6 @@ const saltRounds = 10;
 const session = require('express-session');
 const express = require('express');
 const router = express.Router();
-const uuid = require('uuid/v4');
 
 router.get('/', (req, res)=>{
   res.render('login.ejs', {title: 'Login'});
@@ -18,18 +17,15 @@ router.post('/', (req, res)=>{
         return new Promise((resolve, reject) => {
     
             User.findOne({userName:req.body.username}, (err, user)=>{
-                console.log(user)
+                // console.log(user)
                 if(user){
                 
                 bcryptjs.compare(req.body.password, user.password, function(err, result) {
                     
                     if(result == true){
                         console.log('nice, logged in');
-                        req.session.id = user._id;
-                        req.session.userName = user.userName;
+                        req.session.user = user.userName;
                         req.session.firstName = user.firstName;
-                        const uniqueId = uuid();
-                        console.log(uniqueId);
                         resolve(req.session);
                     }
                     else{
@@ -51,7 +47,7 @@ router.post('/', (req, res)=>{
     loginUser(req, res)
     .then(()=>{
         console.log('sending to my profile');
-        res.status(200).render('my-profile.ejs', {test:'er', firstName:req.session.firstName});
+        res.status(200).render('my-profile.ejs', {firstName:req.session.firstName});
     })
     .catch((err)=>{
       console.log(`Following error while attempting to login ${err.message}`);

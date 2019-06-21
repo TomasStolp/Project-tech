@@ -1,6 +1,10 @@
 <% include components/head.ejs %>
     <section id="banner">
-      <h2>More than <span>6.383</span> people joined already!</h2>
+      <% if(usercount){ %>
+        <h2>More than <span><%= usercount %></span> people joined already!</h2>
+      <% } else{ %>
+        <h2>Join today!</h2>
+      <% } %>
     </section>
     <nav class="home-menu">
       <ul>

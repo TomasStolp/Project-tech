@@ -43,6 +43,17 @@ window.onload = function(){
       }, 500)
     })
   }
+
+  // Removing bands
+  const deleteBtns = document.querySelectorAll('a[data-method="delete"]');
+  if(deleteBtns){
+    deleteBtns.addEventListener('click', (e)=>{
+      console.log(e.target.dataset.id)
+    })
+  }
+
+
+
 }
 
 
