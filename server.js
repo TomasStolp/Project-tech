@@ -87,7 +87,7 @@
     .use('/login', loginUser)
     .use('/register', register)
     .use('/logout', logout)
-    // .use('/top-twenty/:band', removeBand)
+    .use('/top-twenty/:band', removeBand)
     // .get('/my-profile', myProfile)
     .use('/top-twenty', topTwenty)
     .use('/add-bands', addBands)
