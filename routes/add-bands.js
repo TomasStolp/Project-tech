@@ -24,9 +24,15 @@ router.post('/', (req, res) => {
         const pushToArray = new Promise( function (resolve, reject){
         console.log(req.session.user)
         let myquery = { userName: req.session.user, $where: "this.top_20.length < 20" };
-        let newvalues = {$addToSet: { top_20: { $each: Object.keys(req.body) } } };
 
-        User.update(myquery, newvalues, function(err, data) {
+        Band.find({name:{$in: Object.keys(req.body) }}, (err, result)=>{
+          if(err){
+            console.log(err);
+          }
+          console.log(result)
+          let newvalues = {$addToSet: { top_20: { $each: result } } };;
+
+          User.update(myquery, newvalues, function(err, data) {
             if (err) {
               console.log(err);
               reject(err);
@@ -36,6 +42,12 @@ router.post('/', (req, res) => {
                 console.log(Object.keys(req.body));
             }
           });
+
+        })
+
+        // let newvalues = {$addToSet: { top_20: { $each: Object.keys(req.body) } } };
+
+        
         });
 
         User.find(done);
