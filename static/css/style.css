@@ -100,7 +100,7 @@ header .logo-img {
   width: 100%;
   font-weight: bold;
   transition: 0.3s;
-  margin: 0 0 0.75rem;
+  margin: 0.75rem 0;
   text-align: center;
 }
 .btn.--primary {
