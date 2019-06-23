@@ -1,0 +1,8 @@
+node_modules
+static/css/style.scss
+static/css/style.css.map
+.env
+.babelrc
+.vscode
+.eslintrc.json
+.jshintrc
