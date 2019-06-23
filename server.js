@@ -1,4 +1,4 @@
-  /*jshint esversion: 6 */
+
 
   /*
    *  On top of every JS document I put a comment which helps JSHint know that I'm working in ES6.
@@ -7,7 +7,7 @@
    *  I don't understand what happens in hardcore detail.
    *  Reference: https://www.codementor.io/iykyvic/writing-your-nodejs-apps-using-es6-6dh0edw2o
    */
-
+ 
   /* Require dotenv file and trigger the config method.
    *  That will make the information in my .env file available in this file.
    *  The dot .env file is used to store information that shouldn't be publicly available like db info.
