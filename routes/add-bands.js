@@ -23,7 +23,10 @@ router.post('/', (req, res) => {
 
         const pushToArray = new Promise( function (resolve, reject){
         console.log(req.session.user)
-        let myquery = { userName: req.session.user, $where: "this.top_20.length < 20" };
+
+        // Need to find alternative for limiting the size of the bands array
+
+        let myquery = { userName: req.session.user};
 
         Band.find({name:{$in: Object.keys(req.body) }}, (err, result)=>{
           if(err){
