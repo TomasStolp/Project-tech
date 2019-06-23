@@ -5,7 +5,7 @@
     <% for(let i = 0, counter = 1; i <= (data.top_20.length -1 ); i++, counter++){ %>
       <li class="band --item"><%= counter + ' ' + data.top_20[i].name _%>
       <button data-name="<%=data.top_20[i].id_%>" data-method="delete">Delete</button>
-      </li>
+      </li> 
       <% if(i >= 20){
         break;
       }%>
