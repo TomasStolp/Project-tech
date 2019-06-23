@@ -54,8 +54,8 @@
   const loginUser = require('./routes/login.js');
   const logout = require('./routes/logout.js');
 
-  // const url = process.env.MONGODB_URI;
-  const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
+  const url = process.env.MONGODB_URI;
+  // const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
 
   mongoose.connect(url, {
     useNewUrlParser: true
