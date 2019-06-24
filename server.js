@@ -44,6 +44,7 @@ const Band = require('./models/band.js');
 
 // Routes
 const register = require('./routes/register.js');
+const myProfile = require('./routes/my-profile.js');
 const pageNotFound = require('./routes/404.js');
 const addBands = require('./routes/add-bands.js');
 const removeBand = require('./routes/delete-band.js');
@@ -52,8 +53,8 @@ const topTwenty = require('./routes/top-twenty.js');
 const loginUser = require('./routes/login.js');
 const logout = require('./routes/logout.js');
 
-// const url = process.env.MONGODB_URI;
-const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
+const url = process.env.MONGODB_URI;
+// const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
 
 mongoose.connect(url, {
   useNewUrlParser: true
@@ -84,6 +85,7 @@ app
   .get('/', homeRoute)
   .use('/login', loginUser)
   .use('/register', register)
+  .use('/my-profile', myProfile)
   .use('/logout', logout)
   .use('/top-twenty/', removeBand)
   .use('/top-twenty', topTwenty)

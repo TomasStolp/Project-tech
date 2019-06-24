@@ -24,7 +24,13 @@ router.delete('/:band', (req, res)=>{
         console.log(data);
         console.log(data.top_20.indexOf(req.params.band))
         console.log(band)
+        
     })
+    // .then((res)=>{
+    //     res.json({status: 'ok'})
+    // })\
+
+    res.json({status: 'ok'})
 
     // res.redirect('/top-twenty');
 })

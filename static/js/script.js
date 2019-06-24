@@ -105,7 +105,7 @@ window.onload = function(){
         }
       
         function onload() {
-          window.location = '/'
+          window.location = '/top-twenty'
         }
       
         function onfail() {

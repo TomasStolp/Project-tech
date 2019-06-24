@@ -33,15 +33,13 @@ h6 {
   text-transform: capitalize;
 }
 
-footer,
 header,
 main {
   padding: 0 5rem;
   box-sizing: border-box;
 }
 @media (max-width: 25.875rem) {
-  footer,
-header,
+  header,
 main {
     padding: 0 1rem;
   }
@@ -99,6 +97,12 @@ header .logo-img {
 }
 .flex.--row {
   flex-direction: row;
+}
+.flex.--justify-center {
+  justify-content: center;
+}
+.flex.--align-center {
+  align-items: center;
 }
 
 .btn {
@@ -173,7 +177,9 @@ a.home-icon {
   height: 100%;
   width: 3rem;
   overflow: hidden;
-  display: inline-block;
+}
+a.home-icon img {
+  width: 100%;
 }
 
 .top-twenty-list {
