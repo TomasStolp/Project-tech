@@ -17,7 +17,7 @@ There are different free services for deploying your nodejs project and your dat
 
 ## Usage 
 ### Demo
-If you want to try the demo, [click here]:https://p-tech.herokuapp.com
+If you want to try the demo, [click here](https://p-tech.herokuapp.com)
 ### Development
 
 ## License
