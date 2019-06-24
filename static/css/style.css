@@ -6,8 +6,12 @@
 *  ==================================================================================================
 */
 @font-face {
-  font-family: Teko;
+  font-family: Teko-bold;
   src: url("/fonts/Teko-Bold.ttf");
+}
+@font-face {
+  font-family: Teko;
+  src: url("/fonts/Teko-Regular.ttf");
 }
 * {
   box-sizing: border-box;
@@ -18,10 +22,12 @@ html {
   margin: 0;
   padding: 0;
   width: 100%;
+  font-size: 110%;
   font-family: Teko, "sans-serif";
   background-color: #000;
 }
 
+p,
 a,
 h1,
 h2,
@@ -101,6 +107,9 @@ header .logo-img {
 .flex.--justify-center {
   justify-content: center;
 }
+.flex.--justify-space-between {
+  justify-content: space-between;
+}
 .flex.--align-center {
   align-items: center;
 }
@@ -172,6 +181,19 @@ label {
   padding: 1.25rem;
   list-style-type: none;
 }
+.band.--item button[data-method=delete] {
+  background-image: url("../images/icons/delete.svg");
+  width: 2rem;
+  height: 2rem;
+  background-color: transparent;
+  border: none;
+}
+.band.--item button[data-method=delete]:after {
+  content: "Delete";
+  position: relative;
+  top: 1.5rem;
+  color: #fff;
+}
 
 a.home-icon {
   height: 100%;
@@ -237,33 +259,43 @@ a.home-icon img {
 }
 
 .confirm-delete {
+  padding: 16rem 0.5rem;
   display: none;
   width: 100%;
   height: 100%;
-  padding: 20rem 10rem;
-  color: #000;
   position: fixed;
   left: 0;
   top: 0;
 }
 .confirm-delete > div {
+  padding: 0.5rem;
   background-color: #fff;
   height: 100%;
   width: 100%;
-  padding: 3rem;
+  z-index: 99;
+}
+.confirm-delete p {
+  color: #000;
+}
+@media (min-width: 25.875rem) {
+  .confirm-delete {
+    color: #000;
+  }
+  .confirm-delete > div {
+    padding: 1.5rem;
+  }
 }
 .confirm-delete:after {
   content: "";
   background-color: #000;
-  opacity: 0.9;
-  filter: blur(329px);
+  opacity: 0.4;
   width: 100%;
   height: 100%;
   position: fixed;
   display: block;
   top: 0;
   left: 0;
-  z-index: -9999;
+  z-index: -9;
 }
 .confirm-delete.show {
   display: block;
