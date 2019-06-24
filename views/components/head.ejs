@@ -13,8 +13,11 @@
   <% include title.ejs %>
 </head>
 <body <% if(typeof pageType !== 'undefined'){%>data-page-type="<%= pageType _%>"<%}%>>
-  <header>
+  <header class="flex --justify-center --align-center">
+    <% include header-menu.ejs %>
     <img src="images/logo/main-logo.svg" class="logo-img" alt="">
-  <% include header-menu.ejs %>
+    <%if(typeof offline == 'undefined'){%>
+      <a href="/logout">Logout</a>
+    <%}%>
   </header>
   <main>

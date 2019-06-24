@@ -8,7 +8,10 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', (req, res)=>{
-  res.render('login.ejs', {title: 'Login'});
+    if(req.session.user){
+        res.redirect('/my-profile');
+    }
+  res.render('login.ejs', {title: 'Login', offline: true});
 });
 
 
@@ -47,7 +50,8 @@ router.post('/', (req, res)=>{
     loginUser(req, res)
     .then(()=>{
         console.log('sending to my profile');
-        res.status(200).render('my-profile.ejs', {firstName:req.session.firstName});
+        // res.status(200).render('my-profile.ejs', {firstName:req.session.firstName});
+        res.status(200).redirect('/my-profile');
     })
     .catch((err)=>{
       console.log(`Following error while attempting to login ${err.message}`);
