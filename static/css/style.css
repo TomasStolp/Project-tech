@@ -259,7 +259,6 @@ a.home-icon img {
 }
 
 .confirm-delete {
-  padding: 16rem 0.5rem;
   display: none;
   width: 100%;
   height: 100%;
@@ -298,7 +297,7 @@ a.home-icon img {
   z-index: -9;
 }
 .confirm-delete.show {
-  display: block;
+  display: flex;
 }
 
 /*# sourceMappingURL=style.css.map */
