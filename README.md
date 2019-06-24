@@ -3,13 +3,22 @@
 ## Description
 MetalMatch is a webapp for single metalheads where you might meet your other half by the taste in music.
 ## Installation
+
+### Step 1. Use a terminal, preferably with a bash shell. Navigate to the desired folder where you will clone my project to.
 Enter the following command in your terminal ``` git clone https://github.com/TomasS666/Project-tech.git ```
 
+### Step 2. In your terminal, make sure you are in the project folder. If you are, type in the following command.
 Enter ``` npm install ``` in your terminal. It will install all depencies needed for the webapp.
 
+### Step 3. D
+
+## Deploying options
+There are different free services for deploying your nodejs project and your database. This webapp is deployed to **Heroku** and the database is deployed to **Mongo Atlas**
+
 ## Usage 
-MetalMatch is under construction, you can see the site but you can't use the third-party api anymore.
-There will be an update soon.
+### Demo
+If you want to try the demo, [click here]:https://p-tech.herokuapp.com
+### Development
 
 ## License
 The MIT License
