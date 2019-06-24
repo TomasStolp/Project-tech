@@ -2,8 +2,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const User = require('../models/user.js');
 const bcryptjs = require('bcryptjs');
-const saltRounds = 10;
-const session = require('express-session');
 const express = require('express');
 const router = express.Router();
 
