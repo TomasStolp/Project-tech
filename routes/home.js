@@ -10,7 +10,8 @@ router.get('/', (req, res) => {
 
     userCount.then((result) => {
         res.render('home.ejs', {
-            usercount: result.length
+            usercount: result.length,
+            offline: true
         });
     });
     userCount.catch((err) => {
