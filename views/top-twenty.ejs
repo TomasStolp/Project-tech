@@ -4,7 +4,7 @@
   <ul class="top-twenty-list">
     <% for(let i = 0, counter = 1; i <= (data.top_20.length -1 ); i++, counter++){ %>
       <li class="band --item"><%= counter + ' ' + data.top_20[i].name _%>
-      <button data-name="<%=data.top_20[i].id_%>" data-method="delete">Delete</button>
+        <button data-name="<%= data.top_20[i].name _%>" data-id="<%=data.top_20[i].id_%>" data-method="delete">Delete</button>
       </li> 
       <% if(i >= 20){
         break;
@@ -12,5 +12,15 @@
     <% } %>
   </ul>
 <% } %>
+
+<div class="confirm-delete">
+  <div>
+    <p>Are you sure you want to delete  </p>
+    <div class="flex --col">
+      <button class="btn" data-name="cancel">Cancel</button>
+      <button class="btn --danger" data-name="delete">Delete</button>
+    </div>
+  </div>
+</div>
 
 <% include components/footer.ejs %>
