@@ -31,17 +31,18 @@ DB_HOST=localhost
 DB_PORT= [...YOUR PORT...]
 DB_NAME=[...YOUR DB NAME...]
 
-###
-
-### Step 4. 
+### Step 6. Go to your terminal and type ```node server.js ``` or ```nodemon server.js``` if you have nodemon installed.
+Enjoy! You can now create users by registering and then you can add bands to the users. The bands will be pushed as objects to a top_20 array of the user. You can add and remove bands and you "quick search" the bands if client-side JS is enabled.
 
 ## Deploying options
-There are different free services for deploying your nodejs project and your database. This webapp is deployed to **Heroku** and the database is deployed to **Mongo Atlas**
+There are different free services for deploying your nodejs project and your database. This webapp is deployed to **Heroku** and the database is deployed to **Mongo Atlas**.
+
+## Things to know before deploying
+* Don't forget to add env variables which you've written down in your env file to Heroku or another deployment service because if you don't, it's gonna take you hours of debugging for nothing... Happened to me. 
 
 ## Usage 
 ### Demo
 If you want to try the demo, [click here](https://p-tech.herokuapp.com)
-### Development
 
 ## License
 The MIT License
