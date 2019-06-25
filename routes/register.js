@@ -18,12 +18,14 @@ router.post('/', (req, res) => {
 
     registerUser(req, res)
         .then(() => {
+            req.session.errors = null;
             res.redirect('/login');
         })
         .catch((err) => console.log(`Following error occured: ${err.message}`));
 
     function registerUser(req, res) {
         return new Promise((resolve, reject) => {
+
 
             // Store hash in your password DB.
             bcryptjs.genSalt(10, function (err, salt) {
