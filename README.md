@@ -1,9 +1,17 @@
 # Project-tech - MetalMatch
+![Logo](https://github.com/TomasS666/Project-tech/blob/master/Project_tech/Logo/SVG/Artboard%202.svg)
 
 ## Description
 MetalMatch is a webapp for single metalheads where you might meet your other half by the taste in music.
-## Installation
 
+## Features
+* Creating an account
+* Logging in
+* Add metalartists to your top 20
+* Find users with the same interest in artists
+
+## Installation
+ 
 ### Step 1. Use a terminal, preferably with a bash shell. Navigate to the desired folder where you will clone my project to.
 Enter the following command in your terminal ``` git clone https://github.com/TomasS666/Project-tech.git ```
 
@@ -13,7 +21,19 @@ Enter ``` npm install ``` in your terminal. It will install all depencies needed
 ### Step 3. Install MongoDB, follow the guide below to succesfully install MongoDB for managing your databases and collections
 [MongoDB Installation](https://docs.mongodb.com/manual/installation/)
 
-### Step 4. Install 
+### Step 4. After installation MongoDB
+After installing MongoDB follow the documentation. Make sure you make two different collections in your db.
+```users``` & ```bands```. You'll need to populate the bands collection yourself. The schema of bands is simple though, it simply consists of a ```name: string``` key value pair.
+
+### Step 5. Create your ```.env``` file in the root directory of the project.
+If you want to develop locally, add the following lines:
+DB_HOST=localhost
+DB_PORT= [...YOUR PORT...]
+DB_NAME=[...YOUR DB NAME...]
+
+###
+
+### Step 4. 
 
 ## Deploying options
 There are different free services for deploying your nodejs project and your database. This webapp is deployed to **Heroku** and the database is deployed to **Mongo Atlas**
