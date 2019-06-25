@@ -15,6 +15,7 @@ router.post('/', (req, res, next) => {
 
     let errors = req.validationErrors();
     if (errors) {
+        console.log('came here')
         console.log(errors)
         req.session.errors = errors;
         res.redirect('/login');
