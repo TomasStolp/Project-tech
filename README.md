@@ -27,9 +27,11 @@ After installing MongoDB follow the documentation. Make sure you make two differ
 
 ### Step 5. Create your ```.env``` file in the root directory of the project.
 If you want to develop locally, add the following lines:
+```
 DB_HOST=localhost
 DB_PORT= [...YOUR PORT...]
 DB_NAME=[...YOUR DB NAME...]
+```
 
 ### Step 6. Go to your terminal and type ```node server.js ``` or ```nodemon server.js``` if you have nodemon installed.
 Enjoy! You can now create users by registering and then you can add bands to the users. The bands will be pushed as objects to a top_20 array of the user. You can add and remove bands and you "quick search" the bands if client-side JS is enabled.
