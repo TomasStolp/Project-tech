@@ -8,7 +8,8 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     res.render('register.ejs', {
-        title: 'Sign-up'
+        title: 'Sign-up',
+        offline: true
     });
 });
 
@@ -48,7 +49,7 @@ router.post('/', (req, res) => {
 
     registerUser(req, res)
     .then(() => {
-        res.redirect('/');
+        res.redirect('/login');
     })
     .catch((err) => console.log(`Following error occured: ${err.message}`));
 });

@@ -43,6 +43,7 @@ const User = require('./models/user.js');
 const Band = require('./models/band.js');
 
 // Routes
+const authentication = require('./routes/authentication.js');
 const register = require('./routes/register.js');
 const myProfile = require('./routes/my-profile.js');
 const pageNotFound = require('./routes/404.js');
@@ -53,8 +54,8 @@ const topTwenty = require('./routes/top-twenty.js');
 const loginUser = require('./routes/login.js');
 const logout = require('./routes/logout.js');
 
-const url = process.env.MONGODB_URI;
-// const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
+// const url = process.env.MONGODB_URI;
+const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
 
 mongoose.connect(url, {
   useNewUrlParser: true
@@ -89,9 +90,9 @@ app
   .use('/logout', logout)
   .use('/top-twenty/', removeBand)
   .use('/top-twenty', topTwenty)
-  .use('/add-bands', addBands)
-  .post('/add-bands', addBands)
-  .use('*', pageNotFound)
+  .use('/add-bands', authentication, addBands)
+  // .post('/add-bands', addBands)
+  .use('/', pageNotFound)
   .listen(process.env.PORT, function () {
     console.log('Listening');
   });
