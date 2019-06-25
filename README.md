@@ -10,7 +10,10 @@ Enter the following command in your terminal ``` git clone https://github.com/To
 ### Step 2. In your terminal, make sure you are in the project folder. If you are, type in the following command.
 Enter ``` npm install ``` in your terminal. It will install all depencies needed for the webapp.
 
-### Step 3. D
+### Step 3. Install MongoDB, follow the guide below to succesfully install MongoDB for managing your databases and collections
+[MongoDB Installation](https://docs.mongodb.com/manual/installation/)
+
+### Step 4. Install 
 
 ## Deploying options
 There are different free services for deploying your nodejs project and your database. This webapp is deployed to **Heroku** and the database is deployed to **Mongo Atlas**
