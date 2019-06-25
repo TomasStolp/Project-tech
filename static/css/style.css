@@ -95,6 +95,15 @@ header .logo-img {
   max-width: 12rem;
 }
 
+.errors {
+  background-color: #BD1E2D;
+  border-radius: 0.125rem;
+  padding: 2rem;
+}
+.errors li {
+  color: #fff;
+}
+
 .flex {
   display: flex;
 }

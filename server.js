@@ -35,13 +35,6 @@ const session = require('express-session');
 
 const app = express();
 
-
-
-// Models
-const User = require('./models/user.js');
-// const User = require('./models/user.js');
-const Band = require('./models/band.js');
-
 // Routes
 const authentication = require('./routes/authentication.js');
 const register = require('./routes/register.js');
@@ -53,9 +46,12 @@ const homeRoute = require('./routes/home.js');
 const topTwenty = require('./routes/top-twenty.js');
 const loginUser = require('./routes/login.js');
 const logout = require('./routes/logout.js');
+const loginValidation = require('./routes/login-validation.js')
+const registerValidation = require('./routes/reg-validation.js');
+const matches = require('./routes/matches.js');
 
-// const url = process.env.MONGODB_URI;
-const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
+const url = process.env.MONGODB_URI;
+// const url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT + '/' + process.env.DB_NAME;
 
 mongoose.connect(url, {
   useNewUrlParser: true
@@ -84,15 +80,21 @@ app
   .set('view-engine', 'ejs')
   .set('views', 'views')
   .get('/', homeRoute)
-  .use('/login', loginUser)
-  .use('/register', register)
-  .use('/my-profile', myProfile)
+  .use('/login', loginValidation, loginUser)
+  .use('/register', registerValidation, register)
+  .use('/my-profile', authentication, myProfile)
   .use('/logout', logout)
-  .use('/top-twenty/', removeBand)
-  .use('/top-twenty', topTwenty)
+  .use('/top-twenty', authentication, removeBand)
+  .use('/top-twenty', authentication, topTwenty)
   .use('/add-bands', authentication, addBands)
-  // .post('/add-bands', addBands)
-  .use('/', pageNotFound)
+  .use('/matches', authentication, matches)
+  .use((req, res)=>{
+
+    console.log(res.status());
+    res.status(404);
+    res.render('404.ejs', { offline:true });
+      return;
+  })
   .listen(process.env.PORT, function () {
     console.log('Listening');
   });
