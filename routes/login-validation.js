@@ -8,14 +8,13 @@ const User = require('../models/user.js');
 router.post('/', (req, res, next) => {
 
     // Validation Login
-    req.check('emailaddress', 'invalid emailaddress').not().isEmail().trim().escape();
+    req.check('emailaddress', 'invalid emailaddress').not().isEmail()
     req.check('password', 'Password needs to contain at least 5 characters').isLength({
         min: 5
-    });
+    })
 
     let errors = req.validationErrors();
     if (errors) {
-        console.log('came here')
         console.log(errors)
         req.session.errors = errors;
         res.redirect('/login');

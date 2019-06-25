@@ -21,7 +21,8 @@ router.get('/', (req, res) => {
     res.render('login.ejs', {
         title: 'Login',
         offline: true,
-        errors: req.session.errors
+        errors: req.session.errors,
+        customMessage: req.session.customError
     });
     // Cleaning up the errors after they've been rendered.
     req.session.errors = null;
@@ -56,18 +57,26 @@ router.post('/', (req, res) => {
 
                         console.log('sending to my profile');
                         return res.status(200).redirect('/my-profile');
+              }else if(result !== true){
+                  
+                  req.session.customError = "Invalid Credentials";
+                  console.log(err)
+                  console.log('ik hoop dat je hier terecht komt')
+                  // reject(new Error('Could not be authenticated'));
+                  return res.render('/login')
               }else{
-                  throw 'errorrr'
+                throw 'errorrr';
               }
                     
                 }).catch((err)=>{
-                    let errors = req.validationErrors();
-                    errors.push('Invalid credentials')
-                    req.session.errors =  errors;
-                    console.log(err)
-                    console.log('ik hoop dat je hier terecht komt')
-                    // reject(new Error('Could not be authenticated'));
-                    return res.render('/login', {errors: errors})
+
+
+                    // let errors = req.validationErrors();
+                    // req.session.customError = "Invalid Credentials";
+                    // console.log(err)
+                    // console.log('ik hoop dat je hier terecht komt')
+                    // // reject(new Error('Could not be authenticated'));
+                    // return res.render('/login')
                 })
             }
             // else{
@@ -89,18 +98,18 @@ router.post('/', (req, res) => {
         // })
 
         // Catch the error of the latest then. 
-        .catch((err) => {
-            console.log(`Following error while attempting to login ${err.message}`);
+        // .catch((err) => {
+        //     console.log(`Following error while attempting to login ${err.message}`);
 
-            if (String(req.body.emailaddress).length !== 0) {
-                let enteredEmail = req.session.emailaddress;
-                res.render('register.ejs', {
-                    enteredEmail: enteredEmail
-                });
-            } else {
-                res.render('register.ejs');
-            }
-        })
+        //     if (String(req.body.emailaddress).length !== 0) {
+        //         let enteredEmail = req.session.emailaddress;
+        //         res.render('register.ejs', {
+        //             enteredEmail: enteredEmail
+        //         });
+        //     } else {
+        //         res.render('register.ejs');
+        //     }
+        // })
 });
 
 module.exports = router;
