@@ -1,17 +1,17 @@
 <% include components/head.ejs %>
-    <section id="banner">
-      <% if(usercount){ %>
-        <h2>More than <span><%= usercount %></span> people joined already!</h2>
-      <% } else{ %>
-        <h2>Join today!</h2>
-      <% } %>
-    </section>
-    <nav class="home-menu">
-      <ul>
-        <li>
-          <a class="btn --primary" href="/login">Login</a>
-          <a class="btn" href="/register">Register now!</a>
-        </li>
-      </ul>
-    </nav>
+<section id="banner">
+  <% if(usercount){ %>
+  <h2>More than <span><%= usercount %></span> people joined already!</h2>
+  <% } else{ %>
+  <h2>Join today!</h2>
+  <% } %>
+</section>
+<nav class="home-menu">
+  <ul>
+    <li>
+      <a class="btn --primary" href="/login">Login</a>
+      <a class="btn" href="/register">Register now!</a>
+    </li>
+  </ul>
+</nav>
 <% include components/footer.ejs %>

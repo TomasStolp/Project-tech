@@ -1,24 +1,25 @@
 <% include components/head.ejs %>
 <a class="btn --primary" href="/add-bands">Add Bands</a>
 <% if(data.top_20.length > 0){%>
-  <p><%= data.top_20.length%> bands:</p>
-  <ul class="top-twenty-list">
-    <% for(let i = 0, counter = 1; i <= (data.top_20.length -1 ); i++, counter++){ %>
-      <li class="band --item flex --row --align-center --justify-space-between"><%= counter + '. ' + data.top_20[i].name _%>
-        <button class="flex --justify-center" data-name="<%= data.top_20[i].name _%>" data-id="<%=data.top_20[i].id_%>" data-method="delete"></button>
-      </li> 
-      <% if(i >= 20){
+<p><%= data.top_20.length%> bands:</p>
+<ul class="top-twenty-list">
+  <% for(let i = 0, counter = 1; i <= (data.top_20.length -1 ); i++, counter++){ %>
+  <li class="band --item flex --row --align-center --justify-space-between"><%= counter + '. ' + data.top_20[i].name _%>
+    <button class="flex --justify-center" data-name="<%= data.top_20[i].name _%>" data-id="<%=data.top_20[i].id_%>"
+      data-method="delete"></button>
+  </li>
+  <% if(i >= 20){
         break;
       }%>
-    <% } %>
-  </ul>
+  <% } %>
+</ul>
 <% }else{ %>
 <p>0 bands in your top 20. Start adding bands now!</p>
 <% } %>
 
 <div class="confirm-delete flex --justify-center --align-center">
   <div>
-    <p>Are you sure you want to delete  </p>
+    <p>Are you sure you want to delete </p>
     <div class="flex --col">
       <button class="btn" data-name="cancel">Cancel</button>
       <button class="btn --danger" data-name="delete">Delete</button>

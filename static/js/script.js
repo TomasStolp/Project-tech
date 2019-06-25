@@ -1,44 +1,51 @@
 /*jshint esversion: 6 */
-import {multiply} from './plus.js';
 
-console.log(multiply(3, 3));
+window.onload = function () {
 
+  // if(document.querySelector('form[data-form="login"]') && document.querySelector('#login')){
+  //   const loginForm = document.querySelector('form[data-form="login"]');
+  //   const loginBtn = document.querySelector('#login');
+  //   console.log('haha')
 
+  //   // loginForm.addEventListener('submit', (event)=>{
+  //   //   loginBtn.setAttribute('disabled', true);
+  //   //   console.log('haha')
+  //   // })
 
+  //   loginBtn.addEventListener('click', (event)=>{
+  //     event.preventDefault();
+  //     loginBtn.disabled=true;
+  //     console.log('efew')
+  //   })
+  // }
 
-
-
-window.onload = function(){
-
-  if(document.querySelector('body').getAttribute('data-page-type') === 'add-bands'){
+  if (document.querySelector('body').getAttribute('data-page-type') === 'add-bands') {
     searchBands();
   }
 
-  function searchBands(){
+  function searchBands() {
     const searchField = document.querySelector('input[data-field="search"]');
 
     var bands = document.querySelectorAll('input[data-name="band"]');
-    
-    //bands[0].style.display ="none"
-    
-    searchField.addEventListener("keyup", (e)=>{
-      setTimeout(()=>{
+
+    searchField.addEventListener("keyup", (e) => {
+      setTimeout(() => {
         e.preventDefault();
-        
+
         let value = searchField.value;
         console.log(value)
-        
-        bands.forEach(function(elem){
-            elem.parentNode.classList.add("hide");
+
+        bands.forEach(function (elem) {
+          elem.parentNode.classList.add("hide");
         })
-        
+
         let regex = new RegExp(value, "g");
-        let result = Array.from(bands).filter(function(elem){
-            return elem.getAttribute("name").match(regex);
+        let result = Array.from(bands).filter(function (elem) {
+          return elem.getAttribute("name").match(regex);
         })
-        result.forEach(function(elem){
-            console.log(elem)
-            elem.parentNode.classList.remove("hide");
+        result.forEach(function (elem) {
+          console.log(elem)
+          elem.parentNode.classList.remove("hide");
         })
       }, 500)
     })
@@ -47,8 +54,8 @@ window.onload = function(){
   // Removing bands
 
   // Checks if there are delete buttons with the data-method attribute = delete
-  if(document.querySelectorAll('button[data-method="delete"]')){
-  
+  if (document.querySelectorAll('button[data-method="delete"]')) {
+
     // If so, select all those nodeelements and receive a nodelist binded to nodelist.
     const nodelist = document.querySelectorAll('button[data-method="delete"]');
 
@@ -62,8 +69,8 @@ window.onload = function(){
       name is gonna be logged. I render the Object unique id there. So I can use this to delete the instance of that object from the user 
       that's currently logged in.
     */
-    deleteBtns.forEach((elem)=>{
-      elem.addEventListener('click', (event)=>{
+    deleteBtns.forEach((elem) => {
+      elem.addEventListener('click', (event) => {
         console.log(event.target.dataset.id);
         let confirmPopup = document.querySelector('.confirm-delete');
         let confirmText = document.querySelector('.confirm-delete p');
@@ -72,7 +79,7 @@ window.onload = function(){
 
         confirmPopup.classList.add('show');
 
-        cancelBtn.addEventListener('click', (event)=>{
+        cancelBtn.addEventListener('click', (event) => {
           console.log(`canceled`)
           confirmPopup.classList.remove('show');
         })
@@ -82,42 +89,38 @@ window.onload = function(){
         let band = event.target.dataset.id;
 
         // delete(event.target.dataset.id)
-        deleteConfirm.addEventListener('click', ()=>{
+        deleteConfirm.addEventListener('click', () => {
           deleting(band);
         })
       })
     })
 
-
-    function deleting(band){
+    function deleting(band) {
       let confirmPopup = document.querySelector('.confirm-delete');
 
-        console.log(`deleting ${band}`)
-        confirmPopup.classList.remove('show');
+      console.log(`deleting ${band}`)
+      confirmPopup.classList.remove('show');
 
-        // Gebruikt uit example
-        fetch('/top-twenty/' + band, {method: 'delete'})
+      // Used the exmample code from :https://github.com/cmda-bt/be-course-17-18/blob/2c7cc94f574d7a589e0a10c0abeac4790fa13c6b/examples/mongodb-server/static/index.js
+      fetch('/top-twenty/' + band, {
+          method: 'delete'
+        })
         .then(onresponse)
         .then(onload, onfail)
 
-        function onresponse(res) {
-          return res.json()
-        }
-      
-        function onload() {
-          window.location = '/top-twenty'
-        }
-      
-        function onfail() {
-          throw new Error('Could not delete!')
-        }
+      function onresponse(res) {
+        return res.json()
+      }
 
+      function onload() {
+        window.location = '/top-twenty'
+      }
+
+      function onfail() {
+        throw new Error('Could not delete!')
+      }
     }
-
   }
-
-
-
 }
 
 
