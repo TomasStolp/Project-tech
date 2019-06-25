@@ -46,9 +46,9 @@ router.post('/', (req, res) => {
         .then((user) => {
             if (user) {
 
-                bcryptjs.compare(req.body.password, user.password, (err, result) => {
-
-                    if (result === true) {
+                bcryptjs.compare(req.body.password, user.password)
+                .then((result)=>{
+              if(result === true){
                         console.log('nice, logged in');
                         req.session.user = user.userName;
                         req.session.firstName = user.firstName;
@@ -56,13 +56,18 @@ router.post('/', (req, res) => {
 
                         console.log('sending to my profile');
                         return res.status(200).redirect('/my-profile');
-                    } else {
-                        console.log(err)
-                        // reject(new Error('Could not be authenticated'));
-                        return res.redirect('/login')
-                    }
-
-
+              }else{
+                  throw 'errorrr'
+              }
+                    
+                }).catch((err)=>{
+                    let errors = req.validationErrors();
+                    errors.push('Invalid credentials')
+                    req.session.errors =  errors;
+                    console.log(err)
+                    console.log('ik hoop dat je hier terecht komt')
+                    // reject(new Error('Could not be authenticated'));
+                    return res.render('/login', {errors: errors})
                 })
             }
             // else{

@@ -1,13 +1,13 @@
 <% include components/head.ejs %>
 <section id="login">
   <form action="/login" method="post" data-form="login">
-    <%if(typeof errors !== 'undefined'){%>
-    <ul class="errors">
-    <h2>Your input is not valid yet. We provided a list of possible problems.</h2>
-    <%errors.forEach((elem)=>{%>
-    <li><%= elem.msg_%></li>
-    <%})%>
-    </ul>
+    <%if(errors){%>
+      <h2>Your input is not valid yet. We provided a list of possible problems.</h2>
+      <ul class="errors">
+      <% errors.forEach((elem)=>{%>
+        <li><%= elem.msg_%></li>
+      <%})%>
+      </ul>
     <%}%>
     <fieldset>
         <legend>Login</legend>
